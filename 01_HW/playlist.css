@@ -1,36 +1,50 @@
+/* רקע כחול וטקסט לבן לכל הדף */
 body {
+    background-color: #1e3a8a;
+    /* כחול כהה */
     font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
+    color: white;
     text-align: center;
 }
 
-h1 {
-    color: #0078d4;
-    margin-bottom: 20px;
-}
-
+/* מסגרת שחורה לכל הטבלה */
 table {
+    border: 3px solid black;
+    margin: 20px auto;
     width: 80%;
-    margin: 0 auto;
     border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* כל התאים */
 th,
 td {
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 10px;
-}
-
-th {
-    background-color: #0078d4;
+    background-color: #3b82f6;
+    /* כחול בהיר */
     color: white;
 }
 
-td {
-    background-color: #ffffff;
+/* מסגרת שחורה לווידאו */
+iframe {
+    border: 2px solid black;
 }
 
-iframe {
-    border-radius: 10px;
+/* סעיף 13 – CLASS כחול בשביל כותרת הדף וכותרת הטבלה */
+.blueTitle {
+    background-color: blue;
+    color: white;
+    border: 2px solid black;
+}
+
+/* סעיף 14 – שורה מיוחדת עם רקע כחול בהיר, טקסט כחול כהה, מודגש וגדול */
+.highlightRow {
+    background-color: #cce8ff;
+    /* כחול בהיר */
+    color: darkblue;
+    /* טקסט כחול כהה */
+    font-weight: bold;
+    /* טקסט מודגש */
+    font-size: 18px;
+    /* טיפה גדול יותר */
 }

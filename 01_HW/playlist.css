@@ -1,13 +1,14 @@
-/* רקע כחול וטקסט לבן לכל הדף */
+/* רקע הדף */
 body {
     background-color: #1e3a8a;
-    /* כחול כהה */
+    /* כחול */
     font-family: Arial, sans-serif;
     color: white;
+    /* טקסט לבן */
     text-align: center;
 }
 
-/* מסגרת שחורה לכל הטבלה */
+/* מסגרת הטבלה */
 table {
     border: 3px solid black;
     margin: 20px auto;
@@ -15,7 +16,7 @@ table {
     border-collapse: collapse;
 }
 
-/* כל התאים */
+/* תאים בטבלה */
 th,
 td {
     border: 1px solid black;
@@ -25,26 +26,39 @@ td {
     color: white;
 }
 
-/* מסגרת שחורה לווידאו */
+/* מסגרת לסרטונים */
 iframe {
     border: 2px solid black;
 }
 
-/* סעיף 13 – CLASS כחול בשביל כותרת הדף וכותרת הטבלה */
+/* סעיף 13 – עיצוב כותרת */
 .blueTitle {
     background-color: blue;
     color: white;
     border: 2px solid black;
+    font-weight: bold;
 }
 
-/* סעיף 14 – שורה מיוחדת עם רקע כחול בהיר, טקסט כחול כהה, מודגש וגדול */
+/* סעיף 14 – שורה אחרונה מודגשת */
 .highlightRow {
     background-color: #cce8ff;
     /* כחול בהיר */
     color: darkblue;
     /* טקסט כחול כהה */
     font-weight: bold;
-    /* טקסט מודגש */
     font-size: 18px;
-    /* טיפה גדול יותר */
+}
+
+/* סעיף 15 – קישור לשיר + שינוי צבע בהובר */
+.songLink {
+    color: yellow;
+    /* צבע לינק רגיל */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.songLink:hover {
+    color: orange;
+    /* צבע חדש כשהעכבר מעל */
+    text-decoration: underline;
 }

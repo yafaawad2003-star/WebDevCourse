@@ -1,24 +1,15 @@
-// כמה SKINS יש לנו
-const skins = [
-    "SKINS/skin1.css",
-    "SKINS/skin2.css"
-    // אם יש עוד SKINS, אפשר להוסיף כאן:
-    // "SKINS/skin3.css"
-];
-
-let currentSkinIndex = 0; // מתחילים מהראשון
+let currentSkin = 1; // מתחילים עם סקין 1
 
 function changeSkin() {
     const link = document.getElementById("skinStylesheet");
 
-    // לעבור ל-SKIN הבא
-    currentSkinIndex++;
+    currentSkin++; // עבור לסקין הבא
 
-    // אם עברנו את האחרון – חוזרים לראשון
-    if (currentSkinIndex >= skins.length) {
-        currentSkinIndex = 0;
+    // אם עברנו את הסקין האחרון – חוזרים לראשון
+    if (currentSkin > 2) {
+        currentSkin = 1;
     }
 
-    // מחליפים את ה-href של קובץ ה-CSS
-    link.href = skins[currentSkinIndex];
+    // החלפת הקובץ
+    link.href = `SKINS/skin${currentSkin}.css`;
 }

@@ -1,25 +1,25 @@
-// רשימה של כל ה-SKINS (קבצי ה-CSS)
+// A list of all available SKIN CSS files
 const skins = [
     "SKINS/skin1.css",
     "SKINS/skin2.css"
-    // אם תרצי, אפשר להוסיף עוד: "SKINS/skin3.css"
+    // You can add more skins here, e.g. "SKINS/skin3.css"
 ];
 
 let currentSkinIndex = 0;
 
 function changeSkin() {
+    // Get the <link> element that controls the page stylesheet
     const link = document.getElementById("skinStylesheet");
 
-    // לעבור ל-SKIN הבא
+    // Move to the next skin (and loop back to the first)
     currentSkinIndex = (currentSkinIndex + 1) % skins.length;
 
-    // להחליף את קובץ ה-CSS
+    // Replace the CSS file by updating the href attribute
     link.href = skins[currentSkinIndex];
 }
 
-// לחבר את הכפתור לפונקציה אחרי שהעמוד נטען
+// Wait until the page is fully loaded, then connect the button
 document.addEventListener("DOMContentLoaded", function () {
     const btn = document.getElementById("changeSkinBtn");
     btn.addEventListener("click", changeSkin);
 });
-

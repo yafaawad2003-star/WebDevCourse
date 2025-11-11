@@ -1,31 +1,26 @@
 body {
     background-color: #fdfdfb;
-    /* רקע לבן עדין */
     font-family: Arial, sans-serif;
     text-align: center;
     padding-top: 40px;
 }
 
-/* כותרת הדף */
+
 .pageTitle {
     font-size: 32px;
     font-weight: bold;
     color: #3b3a2a;
-    /* חום כהה */
     margin-bottom: 25px;
 }
 
-/* קופסת הטופס */
 .contactBox {
     width: 400px;
     margin: auto;
     border: 3px solid #3b3a2a;
-    /* מסגרת חומה */
     background-color: #ffffff;
     border-collapse: collapse;
 }
 
-/* שורות וטקסט */
 .contactBox td,
 .contactBox th {
     border: 1px solid #3b3a2a;
@@ -33,30 +28,27 @@ body {
     font-size: 16px;
 }
 
-/* כותרת בתוך הקופסה */
+
 .formHeader {
     background-color: #3b3a2a;
-    /* חום כהה */
     color: white;
     font-size: 20px;
 }
 
-/* שדות הקלט */
+
 input,
 textarea {
     width: 95%;
     padding: 5px;
     border: 2px solid #2e5a37;
-    /* ירוק כהה */
+
     border-radius: 4px;
     background-color: #f8fff6;
-    /* לבן עם נגיעה ירוקה עדינה */
+
 }
 
-/* כפתור שליחה */
 .sendBtnRow button {
     background-color: #2e5a37;
-    /* ירוק כהה */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -67,5 +59,5 @@ textarea {
 
 .sendBtnRow button:hover {
     background-color: #214627;
-    /* ירוק עוד יותר כהה */
+
 }

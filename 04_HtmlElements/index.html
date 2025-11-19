@@ -2,103 +2,115 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"> <!-- Standard HTML metadata -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsive scaling -->
-    <title>DOM + Bootstrap Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW Debug + Calculator</title>
 
-    <!-- SECTION 4: Adding Bootstrap CSS -->
+    <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* SECTION 4: Styling the page, LTR mode */
         body {
-            background-color: #f8f9fa;
-            /* Light background */
+            background: #f8f9fa;
+            padding: 20px;
             font-size: 20px;
-            /* Larger text */
         }
 
         #output {
             height: 300px;
-            /* Log area height */
             font-size: 18px;
-            /* Log text size */
         }
 
-        h3 {
-            font-size: 26px;
-            /* Result text size */
-            font-weight: bold;
+        .debug-image-box {
+            border: 1px dashed #aaa;
+            background: #fff;
+            padding: 20px;
+            text-align: center;
         }
     </style>
 </head>
 
-<body class="p-4"> <!-- Padding for spacing -->
+<body>
 
-    <div class="container"> <!-- SECTION 3 + 4: Bootstrap layout -->
+    <div class="container">
 
-        <h2 class="text-center mb-4 fw-bold">DOM + Bootstrap Calculator</h2> <!-- Page title -->
+        <h2 class="text-center fw-bold mb-4">DOM Calculator + Size Debug</h2>
 
-        <!-- Buttons row (not part of the assignment, but kept) -->
-        <div class="row mb-3">
-            <div class="col-12 d-flex gap-3">
-                <button class="btn btn-secondary" onclick="demoNative()">Native Types</button> <!-- Demo button -->
+        <!-- Top buttons -->
+        <div class="row mb-4">
+            <div class="col d-flex gap-3">
+                <button class="btn btn-secondary" onclick="demoNative()">Native Types</button>
                 <button id="btn2" class="btn btn-outline-primary">Register Click From Code</button>
-                <!-- JS click test -->
             </div>
         </div>
 
-        <hr>
+        <!-- Calculator -->
+        <div class="row g-3 mb-4">
 
-        <!-- SECTION 3 & 4: GRID layout for calculator -->
-        <div class="row g-3 align-items-center"> <!-- g-3 = gap spacing -->
-
-            <!-- Input 1 -->
-            <div class="col-12 col-sm-6 col-md-3"> <!-- Responsive columns -->
-                <label class="form-label">Number 1</label>
-                <input id="txt1" type="text" class="form-control form-control-lg"> <!-- Large input field -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <label>Number 1</label>
+                <input id="txt1" class="form-control form-control-lg" type="text">
             </div>
 
-            <!-- SECTION 1: Dropdown for operations -->
             <div class="col-12 col-sm-6 col-md-2">
-                <label class="form-label">Operation</label>
-                <select id="operation" class="form-select form-select-lg"> <!-- Operation selector -->
-                    <option value="+">+</option> <!-- Add -->
-                    <option value="-">-</option> <!-- Subtract -->
-                    <option value="*">*</option> <!-- Multiply -->
-                    <option value="/">/</option> <!-- Divide -->
+                <label>Operation</label>
+                <select id="operation" class="form-select form-select-lg">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
                 </select>
             </div>
 
-            <!-- Input 2 -->
             <div class="col-12 col-sm-6 col-md-3">
-                <label class="form-label">Number 2</label>
-                <input id="txt2" type="text" class="form-control form-control-lg"> <!-- Second number -->
+                <label>Number 2</label>
+                <input id="txt2" class="form-control form-control-lg" type="text">
             </div>
 
-            <!-- Calculate Button -->
             <div class="col-12 col-sm-6 col-md-2">
-                <label class="form-label">Calculate</label>
-                <button id="btnCalc" class="btn btn-danger btn-lg w-100">=</button> <!-- Trigger calculation -->
+                <label>&nbsp;</label>
+                <button id="btnCalc" class="btn btn-danger btn-lg w-100">=</button>
             </div>
 
-            <!-- Result Display -->
-            <div class="col-12 col-sm-12 col-md-2 text-center">
-                <label class="form-label">Result</label>
-                <h3 id="lblRes" class="p-2 border rounded bg-white"></h3> <!-- Shows the result -->
+            <div class="col-12 col-md-2 text-center">
+                <label>Result</label>
+                <h3 id="lblRes" class="border bg-white rounded p-2"></h3>
             </div>
-
         </div>
 
         <hr class="my-4">
 
-        <!-- SECTION 2: Logs output -->
-        <label class="form-label fw-bold">Logs</label>
-        <textarea id="output" class="form-control"></textarea> <!-- Log textbox -->
+        <!-- DEBUG IMAGE AREA -->
+        <h4 class="fw-bold mb-3">Screen Size Debug – Breakpoint Images</h4>
+
+        <div class="debug-image-box mb-3">
+
+            <!-- XS -->
+            <img src="img/xs.png" class="img-fluid d-block d-sm-none" alt="XS">
+
+            <!-- SM -->
+            <img src="img/sm.png" class="img-fluid d-none d-sm-block d-md-none" alt="SM">
+
+            <!-- MD -->
+            <img src="img/md.png" class="img-fluid d-none d-md-block d-lg-none" alt="MD">
+
+            <!-- LG -->
+            <img src="img/lg.png" class="img-fluid d-none d-lg-block d-xl-none" alt="LG">
+
+            <!-- XL -->
+            <img src="img/xl.png" class="img-fluid d-none d-xl-block" alt="XL">
+        </div>
+
+        <button id="btnSizeDebug" class="btn btn-info mb-4">Debug Current Size</button>
+
+        <!-- Logs -->
+        <label class="fw-bold">Logs</label>
+        <textarea id="output" class="form-control"></textarea>
 
     </div>
 
-    <script src="index.js"></script> <!-- Load JS logic -->
+    <!-- JS -->
+    <script src="index.js"></script>
 </body>
 
 </html>

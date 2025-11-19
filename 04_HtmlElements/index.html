@@ -2,49 +2,103 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8"> <!-- Standard HTML metadata -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsive scaling -->
+    <title>DOM + Bootstrap Calculator</title>
+
+    <!-- SECTION 4: Adding Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* SECTION 4: Styling the page, LTR mode */
+        body {
+            background-color: #f8f9fa;
+            /* Light background */
+            font-size: 20px;
+            /* Larger text */
+        }
+
+        #output {
+            height: 300px;
+            /* Log area height */
+            font-size: 18px;
+            /* Log text size */
+        }
+
+        h3 {
+            font-size: 26px;
+            /* Result text size */
+            font-weight: bold;
+        }
+    </style>
 </head>
 
-<body>
-    <button onclick="demoNative()">Native Types</button>
-    <button id="btn2">Register Click From Code</button>
+<body class="p-4"> <!-- Padding for spacing -->
 
-    <hr>
-    <table>
-        <tr>
-            <td style="padding:5xp;"></td>
+    <div class="container"> <!-- SECTION 3 + 4: Bootstrap layout -->
 
-            <td>
-                <input id="txt1" type="text" style="width:200px">
-            </td>
+        <h2 class="text-center mb-4 fw-bold">DOM + Bootstrap Calculator</h2> <!-- Page title -->
 
-            <td style="padding:5xp;">
-                <label>+</label>
-            </td>
+        <!-- Buttons row (not part of the assignment, but kept) -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex gap-3">
+                <button class="btn btn-secondary" onclick="demoNative()">Native Types</button> <!-- Demo button -->
+                <button id="btn2" class="btn btn-outline-primary">Register Click From Code</button>
+                <!-- JS click test -->
+            </div>
+        </div>
 
-            <td style="padding:5xp;">
-                <input id="txt2" type="text" style="width:200px">
-            </td>
+        <hr>
 
-            <td style="padding:5xp;">
-                <button id="btnCalc">=</button>
-            </td>
+        <!-- SECTION 3 & 4: GRID layout for calculator -->
+        <div class="row g-3 align-items-center"> <!-- g-3 = gap spacing -->
 
-            <td style="padding:5xp; ">
-                <h3 id="lblRes"></h3>
-            </td>
-        </tr>
-    </table>
-    </hr>
+            <!-- Input 1 -->
+            <div class="col-12 col-sm-6 col-md-3"> <!-- Responsive columns -->
+                <label class="form-label">Number 1</label>
+                <input id="txt1" type="text" class="form-control form-control-lg"> <!-- Large input field -->
+            </div>
 
-    <br>
-    <hr>
-    <textarea id="output" style="width:100%; height:500xp" cols="90" rows="20"></textarea>
+            <!-- SECTION 1: Dropdown for operations -->
+            <div class="col-12 col-sm-6 col-md-2">
+                <label class="form-label">Operation</label>
+                <select id="operation" class="form-select form-select-lg"> <!-- Operation selector -->
+                    <option value="+">+</option> <!-- Add -->
+                    <option value="-">-</option> <!-- Subtract -->
+                    <option value="*">*</option> <!-- Multiply -->
+                    <option value="/">/</option> <!-- Divide -->
+                </select>
+            </div>
 
+            <!-- Input 2 -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <label class="form-label">Number 2</label>
+                <input id="txt2" type="text" class="form-control form-control-lg"> <!-- Second number -->
+            </div>
 
+            <!-- Calculate Button -->
+            <div class="col-12 col-sm-6 col-md-2">
+                <label class="form-label">Calculate</label>
+                <button id="btnCalc" class="btn btn-danger btn-lg w-100">=</button> <!-- Trigger calculation -->
+            </div>
+
+            <!-- Result Display -->
+            <div class="col-12 col-sm-12 col-md-2 text-center">
+                <label class="form-label">Result</label>
+                <h3 id="lblRes" class="p-2 border rounded bg-white"></h3> <!-- Shows the result -->
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- SECTION 2: Logs output -->
+        <label class="form-label fw-bold">Logs</label>
+        <textarea id="output" class="form-control"></textarea> <!-- Log textbox -->
+
+    </div>
+
+    <script src="index.js"></script> <!-- Load JS logic -->
 </body>
-<script src="index.js"></script>
 
 </html>

@@ -1,91 +1,118 @@
+// Run pageLoaded() once the page is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
     pageLoaded();
 });
 
+// Global variables
 let txt1;
 let txt2;
 let btn;
 let lblRes;
+let operationSelect;
 
+// Initialize elements and events
 function pageLoaded() {
-    txt1 = document.getElementById('txt1');
-    txt2 = document.querySelector('#txt2'); //same thing as the others
-    btn = document.getElementById('btnCalc');
+
+    txt1 = document.getElementById('txt1');  // Input 1 element
+    txt2 = document.getElementById('txt2');  // Input 2 element
+    btn = document.getElementById('btnCalc'); // "=" button
+    lblRes = document.getElementById('lblRes'); // Result display
+    operationSelect = document.getElementById('operation'); // SECTION 1: Dropdown
+
+    // When "=" is pressed → run Calculate()
     btn.addEventListener('click', () => {
         Calculate();
     });
-    lblRes = document.getElementById('lblRes');
 
+    // Demo button from existing setup
+    const btn2 = document.getElementById("btn2");
+    btn2.addEventListener("click", () => {
+        print("btn2 clicked: " + btn2.id);
+    });
 }
+
+// SECTION 1 + 2: Main calculator function
 function Calculate() {
-    let txt1Text = txt1.value;
-    let num1 = parseInt(txt1Text);
-    let txt2Text = txt2.value;
-    let num2 = parseInt(txt2Text);
 
-    let res = num1 + num2;
-    lblRes.innerText = res;
+    txt1.classList.remove("is-valid", "is-invalid"); // Clear validation styles
+    txt2.classList.remove("is-valid", "is-invalid");
 
+    let num1 = parseFloat(txt1.value); // Convert text to number
+    let num2 = parseFloat(txt2.value);
+    let valid = true; // Tracks if input is valid
+
+    // Validate number 1
+    if (isNaN(num1)) {
+        txt1.classList.add("is-invalid"); // Mark as invalid
+        valid = false;
+    } else {
+        txt1.classList.add("is-valid"); // Mark as valid
+    }
+
+    // Validate number 2
+    if (isNaN(num2)) {
+        txt2.classList.add("is-invalid");
+        valid = false;
+    } else {
+        txt2.classList.add("is-valid");
+    }
+
+    // If invalid → stop and log error
+    if (!valid) {
+        lblRes.innerText = "Invalid Input"; // Show error
+        print("Error: One of the inputs is not a number"); // Log error
+        return false; // Return boolean (SECTION 2)
+    }
+
+    // SECTION 1: Get operator from dropdown
+    const op = operationSelect.value;
+    let res;
+
+    // Perform the selected operation
+    switch (op) {
+        case "+":
+            res = num1 + num2; // Addition
+            break;
+        case "-":
+            res = num1 - num2; // Subtraction
+            break;
+        case "*":
+            res = num1 * num2; // Multiplication
+            break;
+        case "/":
+            if (num2 === 0) { // Division by zero check
+                lblRes.innerText = "Cannot divide by 0";
+                print("Error: Attempt to divide by zero"); // Log error
+                return false;
+            }
+            res = num1 / num2;
+    }
+
+    lblRes.innerText = res; // Show result
+
+    // SECTION 2: Log operation into textarea
+    print(num1 + " " + op + " " + num2 + " = " + res);
+
+    return true; // Successful calculation
 }
 
-const btn2 = document.getElementById("btn2");
-btn2.addEventListener("click", () => {
-
-    print("btn2 clicked: " + btn2.id + " | " + btn2.innerText);
-});
-
-//btn2.addEventListener("click",func1);
-//function func1(){}
-
+// SECTION 2: print() adds a new line and returns true/false
 function print(msg) {
 
-    //--Get TextArea Element Reference
-    const ta = document.getElementById("output");
-    //--Write msg to TextArea Text
-    if (ta) ta.value = msg;
-    //--Write Log
-    else console.log(msg);
+    const ta = document.getElementById("output"); // Log textarea
+
+    if (!ta) return false; // If textarea missing → fail
+
+    if (ta.value.length > 0)
+        ta.value += "\n"; // Add new line before new message
+
+    ta.value += msg; // Append text
+
+    return true; // Successfully wrote to log
 }
 
-// =============================================
-// STEP 1: JS NATIVE TYPES, USEFUL TYPES & OPERATIONS
-// =============================================
+// Simple debug function
 function demoNative() {
-    let out = "=== STEP 1: NATIVE TYPES ===\n";
-
-    // String
-    const s = "Hello World";
-    out += "\n[String] s = " + s;
-    out += "\nLength: " + s.length;
-    out += "\nUpper: " + s.toUpperCase();
-
-    // Number
-    const n = 42;
-    out += "\n\n[Number] n = " + n;
-
-    // Boolean
-    const b = true;
-    out += "\n\n[Boolean] b = " + b;
-
-    // Date
-    const d = new Date();
-    out += "\n\n[Date] now = " + d.toISOString();
-
-    // Array
-    const arr = [1, 2, 3, 4];
-    out += "\n\n[Array] arr = [" + arr.join(", ") + "]";
-    out += "\nPush 5 → " + (arr.push(5), arr.join(", "));
-    out += "\nMap x2 → " + arr.map(x => x * 2).join(", ");
-
-    // Functions as variables
-    const add = function (a, b) { return a + b; };
-    out += "\n\n[Function as variable] add(3,4) = " + add(3, 4);
-
-    // Callback
-    function calc(a, b, fn) { return fn(a, b); }
-    const result = calc(10, 20, (x, y) => x + y);
-    out += "\n[Callback] calc(10,20, x+y ) = " + result;
-
-    //Print to Log
-    print(out);
+    print("Demo Native Types Activated.");
 }
+

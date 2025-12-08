@@ -12,6 +12,17 @@ const cardView = document.getElementById('cardView');
 const viewToggleBtn = document.getElementById('viewToggleBtn');
 const viewToggleIcon = document.getElementById('viewToggleIcon');
 
+// Modal player
+const playerFrame = document.getElementById('playerFrame');
+let playerModal = null;
+if (playerFrame && typeof bootstrap !== 'undefined') {
+    const modalEl = document.getElementById('playerModal');
+    playerModal = new bootstrap.Modal(modalEl);
+    modalEl.addEventListener('hidden.bs.modal', () => {
+        playerFrame.src = '';
+    });
+}
+
 // Load saved data
 let songs = JSON.parse(localStorage.getItem('songs')) || [];
 let isTableView = true;
@@ -123,9 +134,10 @@ function renderSongs(songsToShow) {
             <td>${song.rating}</td>
             <td>${formatDate(song.dateAdded)}</td>
             <td class="text-end">
-                <a href="${song.url}" target="_blank" class="btn btn-sm btn-info me-2">
+                <button type="button" class="btn btn-sm btn-info me-2"
+                        onclick="openPlayer('${song.url.replace(/'/g, "\\'")}')">
                     <i class="fas fa-play"></i>
-                </a>
+                </button>
                 <button class="btn btn-sm btn-warning me-2" onclick="editSong(${song.id})">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -148,9 +160,10 @@ function renderSongs(songsToShow) {
                     <p><strong>Rating:</strong> ${song.rating}</p>
                     <p><small class="text-muted">Added: ${formatDate(song.dateAdded)}</small></p>
                     <div class="mt-auto d-flex justify-content-between">
-                        <a href="${song.url}" target="_blank" class="btn btn-sm btn-info">
+                        <button type="button" class="btn btn-sm btn-info"
+                                onclick="openPlayer('${song.url.replace(/'/g, "\\'")}')">
                             <i class="fas fa-play"></i>
-                        </a>
+                        </button>
                         <div>
                             <button class="btn btn-sm btn-warning me-2" onclick="editSong(${song.id})">
                                 <i class="fas fa-edit"></i>
@@ -165,6 +178,24 @@ function renderSongs(songsToShow) {
         `;
         cardView.appendChild(col);
     });
+}
+
+// Open player popup (modal or new tab fallback)
+function openPlayer(url) {
+    if (!playerModal) {
+        window.open(url, '_blank');
+        return;
+    }
+
+    const id = getYouTubeId(url);
+    if (!id) {
+        window.open(url, '_blank');
+        return;
+    }
+
+    const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    playerFrame.src = embedUrl;
+    playerModal.show();
 }
 
 // Extract YouTube video ID

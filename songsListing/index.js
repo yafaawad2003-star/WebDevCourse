@@ -1,4 +1,4 @@
-// אלמנטים
+// Basic element references
 const form = document.getElementById('songForm');
 const list = document.getElementById('songList');
 const submitBtn = document.getElementById('submitBtn');
@@ -12,11 +12,11 @@ const cardView = document.getElementById('cardView');
 const viewToggleBtn = document.getElementById('viewToggleBtn');
 const viewToggleIcon = document.getElementById('viewToggleIcon');
 
-// נתונים
+// Load saved data
 let songs = JSON.parse(localStorage.getItem('songs')) || [];
-let isTableView = true; // טבלה כברירת מחדל
+let isTableView = true;
 
-// -------- טופס: הוספה / עדכון --------
+// Add / update song
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -29,7 +29,6 @@ form.addEventListener('submit', (e) => {
     const existingId = hiddenId.value;
 
     if (existingId) {
-        // עדכון
         const i = songs.findIndex(s => s.id === Number(existingId));
         if (i !== -1) {
             songs[i].title = title;
@@ -39,7 +38,6 @@ form.addEventListener('submit', (e) => {
         submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add';
         hiddenId.value = '';
     } else {
-        // חדש
         songs.push({
             id: Date.now(),
             title,
@@ -54,7 +52,7 @@ form.addEventListener('submit', (e) => {
     document.getElementById('rating').value = '';
 });
 
-// -------- חיפוש + מיון --------
+// Search and sort
 searchInput.addEventListener('input', applyFilters);
 sortRadios.forEach(r => r.addEventListener('change', applyFilters));
 
@@ -63,24 +61,22 @@ function getSortMode() {
     return checked ? checked.value : 'date';
 }
 
-// -------- טוגל תצוגה טבלה / כרטיסים --------
+// Toggle view mode
 viewToggleBtn.addEventListener('click', () => {
     isTableView = !isTableView;
 
     if (isTableView) {
         tableView.classList.remove('d-none');
         cardView.classList.add('d-none');
-        viewToggleIcon.classList.remove('fa-th-large');
-        viewToggleIcon.classList.add('fa-list');
+        viewToggleIcon.classList.replace('fa-th-large', 'fa-list');
     } else {
         tableView.classList.add('d-none');
         cardView.classList.remove('d-none');
-        viewToggleIcon.classList.remove('fa-list');
-        viewToggleIcon.classList.add('fa-th-large');
+        viewToggleIcon.classList.replace('fa-list', 'fa-th-large');
     }
 });
 
-// -------- שמירה ורענון --------
+// Save and display
 function saveAndRender() {
     localStorage.setItem('songs', JSON.stringify(songs));
     applyFilters();
@@ -101,7 +97,6 @@ function applyFilters() {
     } else if (sortBy === 'rating') {
         filtered.sort((a, b) => Number(b.rating) - Number(a.rating));
     } else {
-        // date
         filtered.sort((a, b) => b.dateAdded - a.dateAdded);
     }
 
@@ -118,69 +113,49 @@ function renderSongs(songsToShow) {
             ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
             : '';
 
-        // --- שורה בטבלה ---
+        // Table row
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                ${thumbUrl
-                ? `<img src="${thumbUrl}" alt="${song.title}"
-                           style="width:80px;height:auto;border-radius:4px;margin-right:8px;">`
-                : ''
-            }
+                ${thumbUrl ? `<img src="${thumbUrl}" style="width:80px;border-radius:4px;margin-right:8px;">` : ''}
                 ${song.title}
             </td>
             <td>${song.rating}</td>
             <td>${formatDate(song.dateAdded)}</td>
             <td class="text-end">
-                <a href="${song.url}" target="_blank"
-                   class="btn btn-sm btn-info me-2">
+                <a href="${song.url}" target="_blank" class="btn btn-sm btn-info me-2">
                     <i class="fas fa-play"></i>
                 </a>
-                <button class="btn btn-sm btn-warning me-2"
-                        onclick="editSong(${song.id})">
+                <button class="btn btn-sm btn-warning me-2" onclick="editSong(${song.id})">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="btn btn-sm btn-danger"
-                        onclick="deleteSong(${song.id})">
+                <button class="btn btn-sm btn-danger" onclick="deleteSong(${song.id})">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
         `;
         list.appendChild(row);
 
-        // --- כרטיס ב-Cards View ---
+        // Card view
         const col = document.createElement('div');
         col.className = 'col-md-4';
 
         col.innerHTML = `
             <div class="card h-100">
-                ${thumbUrl
-                ? `<img src="${thumbUrl}" class="card-img-top" alt="${song.title}">`
-                : ''
-            }
+                ${thumbUrl ? `<img src="${thumbUrl}" class="card-img-top">` : ''}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${song.title}</h5>
-                    <p class="card-text mb-1">
-                        <strong>Rating:</strong> ${song.rating}
-                    </p>
-                    <p class="card-text">
-                        <small class="text-muted">
-                            Added: ${formatDate(song.dateAdded)}
-                        </small>
-                    </p>
-
+                    <p><strong>Rating:</strong> ${song.rating}</p>
+                    <p><small class="text-muted">Added: ${formatDate(song.dateAdded)}</small></p>
                     <div class="mt-auto d-flex justify-content-between">
-                        <a href="${song.url}" target="_blank"
-                           class="btn btn-sm btn-info">
+                        <a href="${song.url}" target="_blank" class="btn btn-sm btn-info">
                             <i class="fas fa-play"></i>
                         </a>
                         <div>
-                            <button class="btn btn-sm btn-warning me-2"
-                                    onclick="editSong(${song.id})">
+                            <button class="btn btn-sm btn-warning me-2" onclick="editSong(${song.id})">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger"
-                                    onclick="deleteSong(${song.id})">
+                            <button class="btn btn-sm btn-danger" onclick="deleteSong(${song.id})">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -192,28 +167,23 @@ function renderSongs(songsToShow) {
     });
 }
 
-// -------- עזר --------
+// Extract YouTube video ID
 function getYouTubeId(url) {
     try {
         const u = new URL(url);
-
-        if (u.hostname === 'youtu.be') {
-            return u.pathname.slice(1);
-        }
-
-        const v = u.searchParams.get('v');
-        return v || '';
-    } catch (e) {
+        if (u.hostname === 'youtu.be') return u.pathname.slice(1);
+        return u.searchParams.get('v') || '';
+    } catch {
         return '';
     }
 }
 
+// Format date
 function formatDate(ms) {
-    if (!ms) return '-';
-    return new Date(ms).toLocaleString();
+    return ms ? new Date(ms).toLocaleString() : '-';
 }
 
-// -------- פעולות עריכה / מחיקה --------
+// Edit song
 function editSong(id) {
     const song = songs.find(s => s.id === id);
     if (!song) return;
@@ -226,6 +196,7 @@ function editSong(id) {
     submitBtn.innerHTML = '<i class="fas fa-save"></i> Update';
 }
 
+// Delete song
 function deleteSong(id) {
     if (confirm('Are you sure?')) {
         songs = songs.filter(song => song.id !== id);
@@ -233,5 +204,5 @@ function deleteSong(id) {
     }
 }
 
-// רינדור ראשון – קריאה מה-localStorage
+// First load
 applyFilters();
